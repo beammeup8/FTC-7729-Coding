@@ -152,7 +152,6 @@ public class ClassCombinationAttempt extends OpMode {
 			}
 
 		}
-
 		tiltplatform.setPosition(position);
 
 		/*
@@ -169,6 +168,7 @@ public class ClassCombinationAttempt extends OpMode {
 		telemetry.addData("right tgt pwr", "right pwr: " + String.format("%.2f", right));
 		telemetry.addData("right tgt pwr", "right pwr: " + String.format("%.2f", tapeMeasure));
 		telemetry.addData("right tgt pwr", "right pwr: " + String.format("%.2f°", platformAngle));
+		telemetry.addData("right tgt pwr", "right pwr: " + String.format("%.2f", position));
 	}
 
 	/*
