@@ -141,9 +141,7 @@ public class ClassCombinationAttempt extends OpMode {
 				position -= .03;
 			}
 
-			tiltplatform.setPosition(position);
 		}
-
 		if (gamepad1.y){
 			if (position > 0.97){
 				position = 1;
@@ -152,19 +150,9 @@ public class ClassCombinationAttempt extends OpMode {
 				position += .03;
 			}
 
-			tiltplatform.setPosition(position);
 		}
 
-		
-		if (!gamepad1.a){
-			position = position;
-			tiltplatform.setPosition(position);
-		}
-
-		if (!gamepad1.y){
-			position = position;
-			tiltplatform.setPosition(position);
-		}
+		tiltplatform.setPosition(position);
 
 		/*
 		 * Send telemetry data back to driver station. Note that if we are using
