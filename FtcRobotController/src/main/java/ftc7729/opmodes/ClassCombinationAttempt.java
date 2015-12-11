@@ -144,7 +144,7 @@ public class ClassCombinationAttempt extends OpMode {
 
 		}
 		if (gamepad1.y){
-			if (position == 1){
+			if (position > .99){
 				position = 1;
 			}
 			else{
