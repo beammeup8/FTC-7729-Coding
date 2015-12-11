@@ -162,10 +162,13 @@ public class ClassCombinationAttempt extends OpMode {
 		 * are currently write only.
 		 */
 
+		double platformAngle = position * 180;
+
 		telemetry.addData("Text", "*** Robot Data***");
 		telemetry.addData("left tgt pwr",  "left  pwr: " + String.format("%.2f", left));
 		telemetry.addData("right tgt pwr", "right pwr: " + String.format("%.2f", right));
 		telemetry.addData("right tgt pwr", "right pwr: " + String.format("%.2f", tapeMeasure));
+		telemetry.addData("right tgt pwr", "right pwr: " + String.format("%.2f°", platformAngle));
 	}
 
 	/*
