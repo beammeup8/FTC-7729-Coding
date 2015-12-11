@@ -133,7 +133,7 @@ public class ClassCombinationAttempt extends OpMode {
 
 		motorTape.setPower((tapeMeasure / 4));
 
-		if (gamepad1.b){
+		if (gamepad1.a){
 			if (position < .03){
 				position = 0;
 			}
@@ -144,7 +144,7 @@ public class ClassCombinationAttempt extends OpMode {
 			tiltplatform.setPosition(position);
 		}
 
-		if (gamepad1.x){
+		if (gamepad1.y){
 			if (position > 0.97){
 				position = 1;
 			}
@@ -156,12 +156,12 @@ public class ClassCombinationAttempt extends OpMode {
 		}
 
 		
-		if (!gamepad1.b){
+		if (!gamepad1.a){
 			position = position;
 			tiltplatform.setPosition(position);
 		}
 
-		if (!gamepad1.x){
+		if (!gamepad1.y){
 			position = position;
 			tiltplatform.setPosition(position);
 		}
