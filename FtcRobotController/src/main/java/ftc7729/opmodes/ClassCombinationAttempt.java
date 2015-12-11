@@ -135,20 +135,20 @@ public class ClassCombinationAttempt extends OpMode {
 		motorTape.setPower((tapeMeasure / 4));
 
 		if (gamepad1.a){
-			if (position < .03){
-				position = 0;
+			if (position < .38){
+				position = .38;
 			}
 			else{
-				position -= .001;
+				position -= .003;
 			}
 
 		}
 		if (gamepad1.y){
-			if (position > 0.97){
+			if (position == 1){
 				position = 1;
 			}
 			else{
-				position += .001;
+				position += .003;
 			}
 
 		}
