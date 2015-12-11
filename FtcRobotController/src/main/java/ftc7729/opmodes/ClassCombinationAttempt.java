@@ -139,7 +139,7 @@ public class ClassCombinationAttempt extends OpMode {
 				position = 0;
 			}
 			else{
-				position -= .03;
+				position -= .001;
 			}
 
 		}
@@ -148,7 +148,7 @@ public class ClassCombinationAttempt extends OpMode {
 				position = 1;
 			}
 			else{
-				position += .03;
+				position += .001;
 			}
 
 		}
