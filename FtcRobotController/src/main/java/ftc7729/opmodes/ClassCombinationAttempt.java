@@ -49,6 +49,7 @@ public class ClassCombinationAttempt extends OpMode {
 	DcMotor motorTape;
 
 	Servo tiltplatform;
+	double position;
 
 	/**
 	 * Constructor
@@ -113,12 +114,6 @@ public class ClassCombinationAttempt extends OpMode {
 
 		float tapeMeasure = -gamepad1.left_stick_y;
 
-		boolean abutton = gamepad1.a;
-		boolean bbutton = gamepad1.b;
-		boolean xbutton = gamepad1.x;
-		boolean ybutton = gamepad1.y;
-
-
 		// clip the right/left values so that the values never exceed +/- 1
 		right = Range.clip(right, -1, 1);
 		left = Range.clip(left, -1, 1);
@@ -138,22 +133,26 @@ public class ClassCombinationAttempt extends OpMode {
 
 		motorTape.setPower((tapeMeasure / 4));
 
-		if (abutton == true){
-			tiltplatform.setPosition(0.33);
-		}
-
-		if (bbutton == true){
+		if (gamepad1.b){
+			position -= .1;
 			tiltplatform.setPosition(Servo.MIN_POSITION);
 		}
 
-		if (xbutton == true){
+		if (gamepad1.x){
+			position += .1;
 			tiltplatform.setPosition(0.66);
 		}
 
-		if (ybutton == true){
-			tiltplatform.setPosition(0.85);
+
+		if (!gamepad1.b){
+			position = position;
+			tiltplatform.setPosition(position);
 		}
 
+		if (!gamepad1.x){
+			position = position;
+			tiltplatform.setPosition(position);
+		}
 
 		/*
 		 * Send telemetry data back to driver station. Note that if we are using
