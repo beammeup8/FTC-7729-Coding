@@ -135,15 +135,15 @@ public class ClassCombinationAttempt extends OpMode {
 
 		if (gamepad1.b){
 			position -= .1;
-			tiltplatform.setPosition(Servo.MIN_POSITION);
+			tiltplatform.setPosition(position);
 		}
 
 		if (gamepad1.x){
 			position += .1;
-			tiltplatform.setPosition(0.66);
+			tiltplatform.setPosition(position);
 		}
 
-
+		
 		if (!gamepad1.b){
 			position = position;
 			tiltplatform.setPosition(position);
