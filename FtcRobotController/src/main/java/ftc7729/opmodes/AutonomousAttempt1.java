@@ -79,7 +79,7 @@ public class AutonomousAttempt1 extends LinearOpMode {
     for (int p = 0; p < i; p++) {
       motorLeft.setPower(-MOTOR_POWER);
       motorRight.setPower(MOTOR_POWER);
-      sleep(1000);
+      sleep(900);
     }
   }
 

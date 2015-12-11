@@ -33,6 +33,7 @@ package ftc7729.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
 /**
@@ -46,6 +47,8 @@ public class ClassCombinationAttempt extends OpMode {
 	DcMotor motorLeft;
 
 	DcMotor motorTape;
+
+	Servo tiltplatform;
 
 	/**
 	 * Constructor
@@ -82,6 +85,10 @@ public class ClassCombinationAttempt extends OpMode {
 		motorTape = hardwareMap.dcMotor.get("motor_3");
 		motorRight.setDirection(DcMotor.Direction.REVERSE);
 
+		tiltplatform = hardwareMap.servo.get("servo_1");
+
+
+
 	}
 
 	/*
@@ -99,12 +106,17 @@ public class ClassCombinationAttempt extends OpMode {
 		 * wrist/claw via the a,b, x, y buttons
 		 */
 
-        // tank drive
-        // note that if y equal -1 then joystick is pushed all of the way forward.
-        float left = -gamepad2.left_stick_y;
-        float right = -gamepad2.right_stick_y;
+		// tank drived
+		// note that if y equal -1 then joystick is pushed all of the way forward.
+		float left = -gamepad2.left_stick_y;
+		float right = -gamepad2.right_stick_y;
 
 		float tapeMeasure = -gamepad1.left_stick_y;
+
+		boolean abutton = gamepad1.a;
+		boolean bbutton = gamepad1.b;
+		boolean xbutton = gamepad1.x;
+		boolean ybutton = gamepad1.y;
 
 
 		// clip the right/left values so that the values never exceed +/- 1
@@ -124,8 +136,23 @@ public class ClassCombinationAttempt extends OpMode {
 		motorRight.setPower(right);
 		motorLeft.setPower(left);
 
-		motorTape.setPower((tapeMeasure/4));
+		motorTape.setPower((tapeMeasure / 4));
 
+		if (abutton == true){
+			tiltplatform.setPosition(0.33);
+		}
+
+		if (bbutton == true){
+			tiltplatform.setPosition(Servo.MIN_POSITION);
+		}
+
+		if (xbutton == true){
+			tiltplatform.setPosition(0.66);
+		}
+
+		if (ybutton == true){
+			tiltplatform.setPosition(0.85);
+		}
 
 
 		/*
@@ -136,7 +163,7 @@ public class ClassCombinationAttempt extends OpMode {
 		 */
 
 		telemetry.addData("Text", "*** Robot Data***");
- 		telemetry.addData("left tgt pwr",  "left  pwr: " + String.format("%.2f", left));
+		telemetry.addData("left tgt pwr",  "left  pwr: " + String.format("%.2f", left));
 		telemetry.addData("right tgt pwr", "right pwr: " + String.format("%.2f", right));
 		telemetry.addData("right tgt pwr", "right pwr: " + String.format("%.2f", tapeMeasure));
 	}
