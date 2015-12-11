@@ -85,6 +85,7 @@ public class ClassCombinationAttempt extends OpMode {
 		motorLeft = hardwareMap.dcMotor.get("motor_1");
 		motorTape = hardwareMap.dcMotor.get("motor_3");
 		motorRight.setDirection(DcMotor.Direction.REVERSE);
+		motorTape.setDirection(DcMotor.Direction.REVERSE);
 
 		tiltplatform = hardwareMap.servo.get("servo_1");
 
