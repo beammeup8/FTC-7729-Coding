@@ -114,12 +114,14 @@ public class ClassCombinationAttempt extends OpMode {
 		float right = -gamepad2.right_stick_y;
 
 		float tapeMeasure = -gamepad1.left_stick_y;
+		float tilting = -gamepad1.right_stick_y;
 
 		// clip the right/left values so that the values never exceed +/- 1
 		right = Range.clip(right, -1, 1);
 		left = Range.clip(left, -1, 1);
 
 		tapeMeasure = Range.clip(tapeMeasure, -1 , 1);
+		tilting = Range.clip(tapeMeasure, -1 , 1);
 
 		// scale the joystick value to make it easier to control
 		// the robot more precisely at slower speeds.
@@ -127,6 +129,7 @@ public class ClassCombinationAttempt extends OpMode {
 		left =  (float)scaleInput(left);
 
 		tapeMeasure = (float)scaleInput(tapeMeasure);
+		tilting = (float)scaleInput(tilting);
 
 		// write the values to the motors
 		motorRight.setPower(right);
@@ -134,7 +137,13 @@ public class ClassCombinationAttempt extends OpMode {
 
 		motorTape.setPower((tapeMeasure / 4));
 
-		if (gamepad1.a){
+		tilting = (tilting + 1) / 2;
+
+		tiltplatform.setPosition(tilting);
+		
+
+		//Working Version of the Servo Controller
+		/*if (gamepad1.a){
 			if (position < .38){
 				position = .38;
 			}
@@ -153,7 +162,7 @@ public class ClassCombinationAttempt extends OpMode {
 
 		}
 		tiltplatform.setPosition(position);
-
+		*/
 		/*
 		 * Send telemetry data back to driver station. Note that if we are using
 		 * a legacy NXT-compatible motor controller, then the getPower() method
