@@ -43,13 +43,16 @@ import com.qualcomm.robotcore.util.Range;
  */
 public class ClassCombinationAttempt extends OpMode {
 
+	final static double MOTOR_POWER = .50;
+
 	DcMotor motorRight;
 	DcMotor motorLeft;
 
 	DcMotor motorTape;
+	DcMotor motorAim;
 
-	Servo tiltplatform;
-	double position;
+	double position = 0.38;
+	double motorMaxPercentage = .05;
 
 	/**
 	 * Constructor
@@ -81,13 +84,13 @@ public class ClassCombinationAttempt extends OpMode {
 		 *    "servo_1" controls the arm joint of the manipulator.
 		 *    "servo_6" controls the claw joint of the manipulator.
 		 */
-		motorRight = hardwareMap.dcMotor.get("motor_2");
-		motorLeft = hardwareMap.dcMotor.get("motor_1");
-		motorTape = hardwareMap.dcMotor.get("motor_3");
-		motorRight.setDirection(DcMotor.Direction.REVERSE);
-		motorTape.setDirection(DcMotor.Direction.REVERSE);
+		motorRight = hardwareMap.dcMotor.get("right_drive");
+		motorLeft = hardwareMap.dcMotor.get("left_drive");
+		motorTape = hardwareMap.dcMotor.get("tape_lift");
+		motorAim = hardwareMap.dcMotor.get("tape_aim");
 
-		tiltplatform = hardwareMap.servo.get("servo_1");
+		motorLeft.setDirection(DcMotor.Direction.REVERSE);
+		motorTape.setDirection(DcMotor.Direction.REVERSE);
 
 
 
@@ -107,21 +110,18 @@ public class ClassCombinationAttempt extends OpMode {
 		 * Gamepad 1 controls the motors via the left stick, and it controls the
 		 * wrist/claw via the a,b, x, y buttons
 		 */
-
-		// tank drived
-		// note that if y equal -1 then joystick is pushed all of the way forward.
 		float left = -gamepad2.left_stick_y;
 		float right = -gamepad2.right_stick_y;
 
-		float tapeMeasure = -gamepad1.left_stick_y;
-		float tilting = -gamepad1.right_stick_y;
+		float tapeMeasure = -gamepad1.left_stick_x;
+		float angle = -gamepad1.right_stick_y;
 
 		// clip the right/left values so that the values never exceed +/- 1
 		right = Range.clip(right, -1, 1);
 		left = Range.clip(left, -1, 1);
 
-		tapeMeasure = Range.clip(tapeMeasure, -1 , 1);
-		tilting = Range.clip(tapeMeasure, -1 , 1);
+		tapeMeasure = Range.clip(tapeMeasure, -1, 1);
+		angle = Range.clip(angle, -1, 1);
 
 		// scale the joystick value to make it easier to control
 		// the robot more precisely at slower speeds.
@@ -129,40 +129,19 @@ public class ClassCombinationAttempt extends OpMode {
 		left =  (float)scaleInput(left);
 
 		tapeMeasure = (float)scaleInput(tapeMeasure);
-		tilting = (float)scaleInput(tilting);
+		angle = (float)scaleInput(angle);
 
 		// write the values to the motors
 		motorRight.setPower(right);
 		motorLeft.setPower(left);
 
-		motorTape.setPower((tapeMeasure / 4));
-
-		tilting = (tilting + 1) / 2;
-
-		tiltplatform.setPosition(tilting);
-		
+		motorTape.setPower(tapeMeasure / 4);
+		motorAim.setPower(angle * motorMaxPercentage);
+		// tank drived
+		// note that if y equal -1 then joystick is pushed all of the way forward.
 
 		//Working Version of the Servo Controller
-		/*if (gamepad1.a){
-			if (position < .38){
-				position = .38;
-			}
-			else{
-				position -= .003;
-			}
 
-		}
-		if (gamepad1.y){
-			if (position > .99){
-				position = 1;
-			}
-			else{
-				position += .003;
-			}
-
-		}
-		tiltplatform.setPosition(position);
-		*/
 		/*
 		 * Send telemetry data back to driver station. Note that if we are using
 		 * a legacy NXT-compatible motor controller, then the getPower() method
@@ -170,13 +149,10 @@ public class ClassCombinationAttempt extends OpMode {
 		 * are currently write only.
 		 */
 
-		double platformAngle = position * 180;
-
 		telemetry.addData("Text", "*** Robot Data***");
 		telemetry.addData("left tgt pwr",  "left  pwr: " + String.format("%.2f", left));
 		telemetry.addData("right tgt pwr", "right pwr: " + String.format("%.2f", right));
 		telemetry.addData("right tgt pwr", "right pwr: " + String.format("%.2f", tapeMeasure));
-		telemetry.addData("right tgt pwr", "right pwr: " + String.format("%.2f°", platformAngle));
 		telemetry.addData("right tgt pwr", "right pwr: " + String.format("%.2f", position));
 	}
 

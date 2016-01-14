@@ -33,20 +33,16 @@ package ftc7729.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.IrSeekerSensor;
 
 /**
  * A simple example of a linear op mode that will approach an IR beacon
  */
-public class AutonomousAttempt1 extends LinearOpMode {
+public class RedBucketAutonomous extends LinearOpMode {
 
-  final static double MOTOR_POWER = 0.15; // Higher values will cause the robot to move faster
+  final static double MOTOR_POWER = 1.0; // Higher values will cause the robot to move faster
 
   DcMotor motorRight;
   DcMotor motorLeft;
-
-  double AutonomousDirectionNormal = MOTOR_POWER;
-  double AutonomousDirectionDriving = -MOTOR_POWER;
 
 
   @Override
@@ -62,16 +58,15 @@ public class AutonomousAttempt1 extends LinearOpMode {
     waitForStart();
 
     // now approach the beacon
-    goStraight(2);
-    turnRight(1);
-    goStraight(4);
-    turnRight(1);
-    goStraight(2);
+    goStraight(666);
+    turnLeft(300);
+    goStraight(1650);
+    turnLeft(400);
+    goStraight(1000);
 
     // stop the motors
     motorRight.setPower(0);
     motorLeft.setPower(0);
-
 
   }
 
@@ -79,7 +74,8 @@ public class AutonomousAttempt1 extends LinearOpMode {
     for (int p = 0; p < i; p++) {
       motorLeft.setPower(-MOTOR_POWER);
       motorRight.setPower(MOTOR_POWER);
-      sleep(900);
+      sleep(1);
+      telemetry.addData("right tgt pwr", "right pwr: " + String.format("%.2f", MOTOR_POWER));
     }
   }
 
@@ -87,7 +83,8 @@ public class AutonomousAttempt1 extends LinearOpMode {
     for (int p = 0; p < i; p++) {
       motorLeft.setPower(MOTOR_POWER);
       motorRight.setPower(-MOTOR_POWER);
-      sleep(900);
+      sleep(1);
+      telemetry.addData("right tgt pwr", "right pwr: " + String.format("%.2f", MOTOR_POWER));
     }
   }
 
@@ -95,7 +92,8 @@ public class AutonomousAttempt1 extends LinearOpMode {
     for(int p = 0; p < i; p++) {
       motorRight.setPower(MOTOR_POWER);
       motorLeft.setPower(MOTOR_POWER);
-      sleep(1000);
+      sleep(1);
+      telemetry.addData("right tgt pwr", "right pwr: " + String.format("%.2f", MOTOR_POWER));
     }
   }
 

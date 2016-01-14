@@ -33,7 +33,6 @@ package ftc7729.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
 /**
@@ -41,16 +40,21 @@ import com.qualcomm.robotcore.util.Range;
  * <p>
  * Enables control of the robot via the gamepad
  */
-public class BasicTankDrive extends OpMode {
+public class BasicTestProgram extends OpMode {
 
 	DcMotor motorRight;
 	DcMotor motorLeft;
 
+	DcMotor motorTape;
+	DcMotor motorAim;
+
+	double position = 0.38;
+	double motorMaxPercentage = .05;
 
 	/**
 	 * Constructor
 	 */
-	public BasicTankDrive() {
+	public BasicTestProgram() {
 
 	}
 
@@ -79,7 +83,11 @@ public class BasicTankDrive extends OpMode {
 		 */
 		motorRight = hardwareMap.dcMotor.get("right_drive");
 		motorLeft = hardwareMap.dcMotor.get("left_drive");
+		motorTape = hardwareMap.dcMotor.get("tape_lift");
+		motorAim = hardwareMap.dcMotor.get("tape_aim");
+
 		motorLeft.setDirection(DcMotor.Direction.REVERSE);
+		motorTape.setDirection(DcMotor.Direction.REVERSE);
 
 	}
 
