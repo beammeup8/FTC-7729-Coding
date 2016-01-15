@@ -32,24 +32,25 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 package ftc7729.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.Range;
-import com.qualcomm.robotcore.hardware.*;
 
 /**
  * TeleOp Mode
  * <p>
  * Enables control of the robot via the gamepad
  */
-public class BasicTankDrive extends OpMode {
+public class TestWormDrive extends OpMode {
 
-	DcMotor motorRight;
-	DcMotor motorLeft;
+	DcMotor wormDrive;
+
+	public final double maxSpeed = 0.25;
 
 
 	/**
 	 * Constructor
 	 */
-	public BasicTankDrive() {
+	public TestWormDrive() {
 
 	}
 
@@ -76,9 +77,7 @@ public class BasicTankDrive extends OpMode {
 		 *    "servo_1" controls the arm joint of the manipulator.
 		 *    "servo_6" controls the claw joint of the manipulator.
 		 */
-		motorRight = hardwareMap.dcMotor.get("right_drive");
-		motorLeft = hardwareMap.dcMotor.get("left_drive");
-		motorLeft.setDirection(DcMotor.Direction.REVERSE);
+		wormDrive = hardwareMap.dcMotor.get("tape_aim");
 
 	}
 
@@ -99,21 +98,17 @@ public class BasicTankDrive extends OpMode {
 
         // tank drive
         // note that if y equal -1 then joystick is pushed all of the way forward.
-        float left = -gamepad2.left_stick_y;
         float right = -gamepad2.right_stick_y;
 
 		// clip the right/left values so that the values never exceed +/- 1
 		right = Range.clip(right, -1, 1);
-		left = Range.clip(left, -1, 1);
 
 		// scale the joystick value to make it easier to control
 		// the robot more precisely at slower speeds.
 		right = (float)scaleInput(right);
-		left =  (float)scaleInput(left);
 
 		// write the values to the motors
-		motorRight.setPower(right);
-		motorLeft.setPower(left);
+		wormDrive.setPower((right * maxSpeed));
 
 
 
@@ -125,8 +120,7 @@ public class BasicTankDrive extends OpMode {
 		 */
 
 		telemetry.addData("Text", "*** Robot Data***");
- 		telemetry.addData("left tgt pwr",  "left  pwr: " + String.format("%.2f", left));
-		telemetry.addData("right tgt pwr", "right pwr: " + String.format("%.2f", right));
+		telemetry.addData("right tgt pwr", "right pwr: " + String.format("%.2f", (right * maxSpeed)));
 	}
 
 	/*

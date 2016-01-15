@@ -42,6 +42,8 @@ import ftc7729.opmodes.MotorSwivel;
 import ftc7729.opmodes.NoHardware;
 import ftc7729.opmodes.RedBucketAutonomous;
 import ftc7729.opmodes.RedMountainAutonomous;
+import ftc7729.opmodes.TestMotors;
+import ftc7729.opmodes.TestWormDrive;
 
 /**
  * Register Op Modes
@@ -71,13 +73,14 @@ public class FtcOpModeRegister implements OpModeRegister {
    // manager.register("K9Line", K9Line.class);
     //manager.register ("PushBotAuto", PushBotAuto.class);
     //manager.register ("PushBotManual", PushBotManual.class);
+    manager.register("Test All Motors", TestMotors.class);
+    manager.register("Test Worm Drive", TestWormDrive.class);
     manager.register("BasicTankDrive", BasicTankDrive.class);
     manager.register("JoyTest", NoHardware.class);
     manager.register("BlueBucketAutonomous", BlueBucketAutonomous.class);
     manager.register("BlueMountainAutonomous", BlueMountainAutonomous.class);
     manager.register("RedBucketAutonomous", RedBucketAutonomous.class);
     manager.register("RedMountainAutonomous", RedMountainAutonomous.class);
-    manager.register("Platform Swivel", MotorSwivel.class);
     manager.register("Combined files", ClassCombinationAttempt.class);
 
 
