@@ -33,6 +33,7 @@ package ftc7729.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.LegacyModule;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
@@ -51,8 +52,14 @@ public class ClassCombinationAttempt extends OpMode {
 	DcMotor motorTape;
 	DcMotor motorAim;
 
+	DcMotor motorHinges;
+
+	Servo hook;
+
 	double position = 0.38;
 	double motorMaxPercentage = .05;
+
+	double totalPower = 0.00;
 
 	/**
 	 * Constructor
@@ -89,10 +96,12 @@ public class ClassCombinationAttempt extends OpMode {
 		motorTape = hardwareMap.dcMotor.get("tape_lift");
 		motorAim = hardwareMap.dcMotor.get("tape_aim");
 
+		motorHinges = hardwareMap.dcMotor.get("hit_climbers");
+
 		motorLeft.setDirection(DcMotor.Direction.REVERSE);
-		motorTape.setDirection(DcMotor.Direction.REVERSE);
+		motorAim.setDirection(DcMotor.Direction.REVERSE);
 
-
+		hook = hardwareMap.servo.get("servo");
 
 	}
 
@@ -113,7 +122,7 @@ public class ClassCombinationAttempt extends OpMode {
 		float left = -gamepad2.left_stick_y;
 		float right = -gamepad2.right_stick_y;
 
-		float tapeMeasure = -gamepad1.left_stick_x;
+		float tapeMeasure = -gamepad1.left_stick_y;
 		float angle = -gamepad1.right_stick_y;
 
 		// clip the right/left values so that the values never exceed +/- 1
@@ -135,8 +144,40 @@ public class ClassCombinationAttempt extends OpMode {
 		motorRight.setPower(right);
 		motorLeft.setPower(left);
 
-		motorTape.setPower(tapeMeasure / 4);
-		motorAim.setPower(angle * motorMaxPercentage);
+		motorTape.setPower((tapeMeasure / 2) * .7);
+		motorAim.setPower((angle * motorMaxPercentage));
+
+		if (gamepad1.dpad_right){
+			//motorHinges.setPower(-.25);
+			totalPower = -0.25;
+		}
+		else if (gamepad1.dpad_left){
+			//motorHinges.setPower(.25);
+			totalPower = 0.25;
+		}
+		else {
+			totalPower = 0.00;
+		}
+
+		motorHinges.setPower(totalPower);
+
+		if (gamepad1.a){
+			if (position >= .99){
+				position = 1.00;
+			}
+			else {
+				position += 0.001;
+			}
+		}
+		if (gamepad1.b){
+			if (position <= 0.01){
+				position = 0.00;
+			}
+			else {
+				position -= 0.001;
+			}
+		}
+
 		// tank drived
 		// note that if y equal -1 then joystick is pushed all of the way forward.
 

@@ -47,6 +47,8 @@ public class TestMotors extends LinearOpMode {
   DcMotor motorTape;
   DcMotor motorAim;
 
+  DcMotor motorHinges;
+
   double position = 0.38;
   double motorMaxPercentage = .05;
 
@@ -59,10 +61,11 @@ public class TestMotors extends LinearOpMode {
     motorLeft = hardwareMap.dcMotor.get("left_drive");
     motorTape = hardwareMap.dcMotor.get("tape_lift");
     motorAim = hardwareMap.dcMotor.get("tape_aim");
+    motorHinges = hardwareMap.dcMotor.get("hit_climbers");
 
     motorLeft.setDirection(DcMotor.Direction.REVERSE);
-    motorTape.setDirection(DcMotor.Direction.REVERSE);
     motorAim.setDirection(DcMotor.Direction.REVERSE);
+    motorHinges.setDirection(DcMotor.Direction.REVERSE);
 
     // wait for the start button to be pressed
     waitForStart();
@@ -92,6 +95,13 @@ public class TestMotors extends LinearOpMode {
     motorAim.setPower(-motor_power * motorMaxPercentage);
     sleep(1000);
     motorAim.setPower(0.00);
+    sleep(1000);
+
+    motorHinges.setPower(.5);
+    sleep(500);
+    motorHinges.setPower(-.5);
+    sleep(500);
+    motorHinges.setPower(0.00);
     sleep(1000);
 
   }
