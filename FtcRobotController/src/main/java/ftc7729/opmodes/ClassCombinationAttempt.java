@@ -56,7 +56,7 @@ public class ClassCombinationAttempt extends OpMode {
 
 	Servo hook;
 
-	double position = 0.38;
+	double position = 1.00;
 	double motorMaxPercentage = .05;
 
 	double totalPower = 0.00;
@@ -149,11 +149,11 @@ public class ClassCombinationAttempt extends OpMode {
 
 		if (gamepad1.dpad_right){
 			//motorHinges.setPower(-.25);
-			totalPower = -0.25;
+			totalPower = -0.50;
 		}
 		else if (gamepad1.dpad_left){
 			//motorHinges.setPower(.25);
-			totalPower = 0.25;
+			totalPower = 0.50;
 		}
 		else {
 			totalPower = 0.00;
@@ -162,21 +162,13 @@ public class ClassCombinationAttempt extends OpMode {
 		motorHinges.setPower(totalPower);
 
 		if (gamepad1.a){
-			if (position >= .99){
-				position = 1.00;
-			}
-			else {
-				position += 0.001;
-			}
+			position = 1.00;
 		}
 		if (gamepad1.b){
-			if (position <= 0.01){
-				position = 0.00;
-			}
-			else {
-				position -= 0.001;
-			}
+			position = 0.25;
 		}
+
+		hook.setPosition(position);
 
 		// tank drived
 		// note that if y equal -1 then joystick is pushed all of the way forward.
