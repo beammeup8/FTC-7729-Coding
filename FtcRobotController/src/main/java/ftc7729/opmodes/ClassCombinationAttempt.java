@@ -54,7 +54,9 @@ public class ClassCombinationAttempt extends OpMode {
 
 	DcMotor motorHinges;
 
-	Servo hook;
+	//Servo hook;
+
+	double tapeSpeedPercentage = 0.35;
 
 	double position = 1.00;
 	double motorMaxPercentage = .05;
@@ -100,8 +102,13 @@ public class ClassCombinationAttempt extends OpMode {
 
 		motorLeft.setDirection(DcMotor.Direction.REVERSE);
 		motorAim.setDirection(DcMotor.Direction.REVERSE);
+		motorHinges.setDirection(DcMotor.Direction.REVERSE);
 
-		hook = hardwareMap.servo.get("servo");
+		tapeSpeedPercentage = 0.35;
+
+		//hook = hardwareMap.servo.get("servo");
+
+		//hook.setPosition(position);
 
 	}
 
@@ -144,14 +151,13 @@ public class ClassCombinationAttempt extends OpMode {
 		motorRight.setPower(right);
 		motorLeft.setPower(left);
 
-		motorTape.setPower((tapeMeasure / 2) * .7);
 		motorAim.setPower((angle * motorMaxPercentage));
 
-		if (gamepad1.dpad_right){
+		if (gamepad2.dpad_right){
 			//motorHinges.setPower(-.25);
 			totalPower = -0.50;
 		}
-		else if (gamepad1.dpad_left){
+		else if (gamepad2.dpad_left){
 			//motorHinges.setPower(.25);
 			totalPower = 0.50;
 		}
@@ -162,14 +168,33 @@ public class ClassCombinationAttempt extends OpMode {
 		motorHinges.setPower(totalPower);
 
 		if (gamepad1.a){
-			position = 1.00;
+			tapeSpeedPercentage = 1.00;
+		}
+		if (gamepad1.y){
+			tapeSpeedPercentage = 0.35;
+		}
+
+		motorTape.setPower(tapeMeasure * tapeSpeedPercentage);
+
+		/*if (gamepad1.a){
+			if (position >= .99){
+				position = 1.00;
+			}
+			else {
+				position += 0.001;
+			}
 		}
 		if (gamepad1.b){
-			position = 0.25;
+			if (position <= .26){
+				position = .25;
+			}
+			else {
+				position -= 0.001;
+			}
 		}
 
 		hook.setPosition(position);
-
+		*/
 		// tank drived
 		// note that if y equal -1 then joystick is pushed all of the way forward.
 

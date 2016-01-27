@@ -34,6 +34,7 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
 
+import ftc7729.opmodes.Autonomous;
 import ftc7729.opmodes.BasicTankDrive;
 import ftc7729.opmodes.BlueBucketAutonomous;
 import ftc7729.opmodes.BlueMountainAutonomous;
@@ -74,13 +75,8 @@ public class FtcOpModeRegister implements OpModeRegister {
     //manager.register ("PushBotAuto", PushBotAuto.class);
     //manager.register ("PushBotManual", PushBotManual.class);
     manager.register("Test All Motors", TestMotors.class);
-    manager.register("Test Worm Drive", TestWormDrive.class);
     manager.register("BasicTankDrive", BasicTankDrive.class);
-    manager.register("JoyTest", NoHardware.class);
-    manager.register("BlueBucketAutonomous", BlueBucketAutonomous.class);
-    manager.register("BlueMountainAutonomous", BlueMountainAutonomous.class);
-    manager.register("RedBucketAutonomous", RedBucketAutonomous.class);
-    manager.register("RedMountainAutonomous", RedMountainAutonomous.class);
+    manager.register("Autonomous", Autonomous.class);
     manager.register("Combined files", ClassCombinationAttempt.class);
 
 
